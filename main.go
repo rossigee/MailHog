@@ -19,6 +19,8 @@ import (
 	"github.com/mailhog/http"
 	"github.com/mailhog/mhsendmail/cmd"
 	"golang.org/x/crypto/bcrypt"
+
+	healthapi "github.com/mailhog/MailHog/api"
 )
 
 var apiconf *cfgapi.Config
@@ -83,11 +85,13 @@ func main() {
 		cb := func(r gohttp.Handler) {
 			web.CreateWeb(uiconf, r.(*pat.Router), assets.Asset)
 			api.CreateAPI(apiconf, r.(*pat.Router))
+			healthapi.CreateHealthAPI(apiconf, r.(*pat.Router), version)
 		}
 		go http.Listen(uiconf.UIBindAddr, assets.Asset, exitCh, cb)
 	} else {
 		cb1 := func(r gohttp.Handler) {
 			api.CreateAPI(apiconf, r.(*pat.Router))
+			healthapi.CreateHealthAPI(apiconf, r.(*pat.Router), version)
 		}
 		cb2 := func(r gohttp.Handler) {
 			web.CreateWeb(uiconf, r.(*pat.Router), assets.Asset)

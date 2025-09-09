@@ -50,3 +50,34 @@ Send a JSON body specifying the recipient, SMTP hostname and port number:
 ```
 
 Returns a ```200``` response code if message delivery was successful.
+
+## Health and Monitoring Endpoints
+
+The following endpoints are available for health checks and monitoring:
+
+### GET /health
+
+Liveness probe endpoint for Kubernetes health checks.
+
+Returns application status, uptime, and version information.
+
+### GET /ready
+
+Readiness probe endpoint for Kubernetes health checks.  
+
+Returns service readiness status and storage connectivity information.
+
+Returns a ```200``` response code if the service is ready, or ```503``` if not ready.
+
+### GET /metrics
+
+Prometheus-compatible metrics endpoint.
+
+Returns application metrics in Prometheus exposition format including:
+- Message count
+- Application uptime  
+- Memory usage
+- Active goroutines
+- Storage information
+
+See [Health Endpoints](HEALTH.md) for detailed documentation.
