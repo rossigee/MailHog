@@ -83,6 +83,11 @@ See [MailHog libraries](docs/LIBRARIES.md) for a list of MailHog client librarie
 * HTTP API to list, retrieve and delete messages
   * See [APIv1](/docs/APIv1.md) and [APIv2](/docs/APIv2.md) documentation for more information
 * [HTTP basic authentication](docs/Auth.md) for MailHog UI and API
+* **Kubernetes-ready health check endpoints**
+  * `/health` - Liveness probe endpoint
+  * `/ready` - Readiness probe endpoint  
+  * `/metrics` - Prometheus metrics endpoint
+  * See [Health Endpoints](HEALTH_ENDPOINTS.md) for detailed documentation
 * Multipart MIME support
 * Download individual MIME parts
 * In-memory message storage
@@ -125,7 +130,31 @@ See the [Building MailHog](/docs/BUILD.md) guide.
 
 Requires Go 1.4+ to build.
 
-Run tests using ```make test``` or ```goconvey```.
+## Testing
+
+Run tests using:
+```bash
+make test              # Run health endpoint tests
+go test -v ./api/      # Run tests with verbose output
+go test -cover ./api/  # Run tests with coverage report
+```
+
+### CI/CD Pipeline
+
+This project uses **GitHub Actions** for continuous integration:
+- **Automated testing** on Go 1.24 and 1.25
+- **Integration testing** of health endpoints
+- **Build verification** and artifact creation
+- **Docker image building** (on master branch)
+
+See `.github/workflows/ci.yml` for the complete pipeline.
+
+### Health Endpoints Testing
+
+The CI pipeline automatically tests:
+- `/health` - Liveness probe endpoint
+- `/ready` - Readiness probe endpoint  
+- `/metrics` - Prometheus metrics endpoint
 
 If you make any changes, run ```go fmt ./...``` before submitting a pull request.
 

@@ -32,4 +32,7 @@ tag:
 	cd ../smtp; git tag -a -m 'v${VERSION}' v${VERSION} && git push origin v${VERSION}
 	cd ../storage; git tag -a -m 'v${VERSION}' v${VERSION} && git push origin v${VERSION}
 
-.PHONY: all combined release fmt release-deps pull tag
+test:
+	go test -v ./api/
+
+.PHONY: all combined release fmt release-deps pull tag test
