@@ -1,1 +1,15 @@
-*
+# Exclude build artifacts and cache
+mailhog
+.git
+.gitignore
+vendor/
+*.log
+*.test
+
+# Include necessary files for build
+!go.mod
+!go.sum
+!*.go
+!docs/
+!assets/
+!config/
