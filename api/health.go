@@ -28,10 +28,10 @@ type HealthResponse struct {
 
 // ReadinessResponse represents the readiness check response
 type ReadinessResponse struct {
-	Status     string `json:"status"`
-	Timestamp  string `json:"timestamp"`
-	Storage    string `json:"storage"`
-	StorageOk  bool   `json:"storage_ok"`
+	Status    string `json:"status"`
+	Timestamp string `json:"timestamp"`
+	Storage   string `json:"storage"`
+	StorageOk bool   `json:"storage_ok"`
 }
 
 // CreateHealthAPI creates health check endpoints
@@ -89,10 +89,10 @@ func (h *HealthAPI) readinessCheck(w http.ResponseWriter, req *http.Request) {
 	}
 
 	response := ReadinessResponse{
-		Status:     status,
-		Timestamp:  time.Now().UTC().Format(time.RFC3339),
-		Storage:    storageType,
-		StorageOk:  storageOk,
+		Status:    status,
+		Timestamp: time.Now().UTC().Format(time.RFC3339),
+		Storage:   storageType,
+		StorageOk: storageOk,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

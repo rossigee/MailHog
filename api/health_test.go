@@ -160,7 +160,7 @@ func TestReadinessWithStorageFailure(t *testing.T) {
 	convey.Convey("Readiness endpoint should handle storage failures", t, func() {
 		// Create a mock storage that fails
 		mockStorage := &MockFailingStorage{}
-		
+
 		conf := &config.Config{
 			WebPath:      "",
 			StorageType:  "mock",
